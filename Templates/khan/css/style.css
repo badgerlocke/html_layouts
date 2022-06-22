@@ -1,0 +1,112 @@
+/* Box Model Hack */
+* {
+  box-sizing: border-box;
+}
+
+/* Clear fix hack */
+.clearfix:after {
+     content: ".";
+     display: block;
+     clear: both;
+     visibility: hidden;
+     line-height: 0;
+     height: 0;
+}
+
+.clear {
+	clear: both;
+}
+
+/******************************************
+/* BASE STYLES
+/*******************************************/
+
+/* body {
+  background-color: white;
+} */
+
+
+header section {
+  color: blue;
+  float: left;
+  margin: auto;
+  width: 33%;
+}
+header {
+  height: 50px;
+  border-bottom: 1px solid lightgray;
+}
+
+.courses {
+  text-align: right;
+  padding: 10px;
+  display: inline-block;
+}
+
+/* .logo {
+  padding: 0 50px;
+} */
+
+.logo {
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+nav {
+  float: right;
+}
+
+li{
+  list-style: none;
+  display: inline-block;
+  margin: 0 1px;
+  padding: 0 15px;
+  text-align: center;
+  font-size: small;
+}
+.big {
+  font-size: x-large;
+  font-family: 'Times New Roman', Times, serif;
+}
+.big span {
+  text-decoration: underline;
+  justify-content: left;
+}
+.main div {
+  height: 400px;
+  color: black;
+  width: 50%;
+  float: left;
+  align-items: center;
+  display: flex;
+  align-items: center;
+}
+.triangle {
+  height: 100px;
+  background-image: linear-gradient(182deg, #F4F4F4 70%, bisque calc(70% + 2px));
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  background-color: bisque;
+  color: black;
+}
+
+footer h2 {
+  position: absolute;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
