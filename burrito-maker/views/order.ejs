@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Burrito Maker</title>
+</head>
+<body>
+    <h1>Your order is ready!</h1> 
+    <!-- Check if burrito is cursed oruncursed -->
+    <% console.log("Burrito: " +  burrito.cursed) %>
+    <% if (burrito.cursed) { %>
+        <h4><%= burrito.name %>, we made you a <span class="cursed">CURSED</span> burrito with:</h4>
+    <% } else {%>
+        <h4><%= burrito.name %>, we made you a burrito with:</h4>
+    <% } %>
+    <ul>
+        <% for(var i=0; i < burrito.ingredients.length; i++) { %>
+            <li class="ingredient">
+                <span><%= burrito.ingredients[i] %></span>
+            </li>
+        <% } %>
+    </ul>
+    <h2><i>We hope you enjoy your meal!</i></h2>
+</body>
