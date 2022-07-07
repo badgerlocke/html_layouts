@@ -27,9 +27,6 @@ for (a in ingredients) {
 }
 // console.log(allIngredients)
 
-// const maxIngredients = ingredients["carbs"].length + ingredients["protein"].length + ingredients["vegetables"].length + ingredients["extras"].length;
-// console.log(`Number of ingredients (uncursed): ${maxIngredients}   with cursed: ${maxIngredients + cursedIngredients.length}`)
-
 app.listen(process.env.PORT, () => {
     console.log(`listening on ${process.env.PORT}`)
 })
@@ -42,9 +39,17 @@ MongoClient.connect(process.env.SERVER)
 
         //Sends "burritoes" array to index.ejs and renders it 
         app.get('/', (req, res) => {
-            db.collection('burritoes').find().toArray()
+            burritoesCollection.find().toArray()
                 .then(results => {
                     res.render('index.ejs', {burritoes: results}) 
+                })
+                .catch(error => console.error(error))
+        })
+
+        app.get('/order', (req, res) => {
+            burritoesCollection.find().toArray()
+                .then(results => {
+                    res.render('order.ejs', {burrito: results[results.length-1]}) 
                 })
                 .catch(error => console.error(error))
         })
@@ -58,49 +63,24 @@ MongoClient.connect(process.env.SERVER)
                 .catch(error => console.log(error))
         })
 
+        //PUT request with order number => Find order in DB, use its data (cursed, numIngredients) to generate a new ingredients list, then update the order in the DB
         app.put('/burritoes', (req, res) => {
-            console.log("Trying to find order " + req.body.orderNum)
-            let newFilling = []
             const order = burritoesCollection.findOne({orderNum: req.body.orderNum})
             .then( data => {
-                console.log("Found: "+ JSON.stringify(data))
-                newFilling = randomIngredients(data.numIngredients,data.cursed)
-                //console.log("New filling: " + newFilling)
+                burritoesCollection.findOneAndUpdate(
+                    {orderNum: req.body.orderNum},
+                    {$set: {ingredients: randomIngredients(data.numIngredients,data.cursed)}},
+                    { upsert: true}
+                )
+                    .catch(error => console.error(error))
             }
             )
-            burritoesCollection.findOneAndUpdate(
-                {orderNum: req.body.orderNum},
-                {$set: {ingredients: [...newFilling]}},
-                { upsert: true}
-            )
-                .then(result => {
-                    console.log("Updated ingredients")
-                    console.log("New object: " + JSON.stringify(result.value))
-                    res.render('order',{burrito: result.value})
-                })
-                .catch(error => console.error(error))
-            // updateOrder(req.body.orderNum)
-          })
-        
-        async function updateOrder(idNum) {
-            // try{
-            //     const order = await burritoesCollection.findOne({orderNum: idNum})
-            //     console.log(order)
 
-            // } catch (err) {
-            //     throw err
-            // }
-            // console.log(order)
-            console.log("ID num: " + typeof(idNum))
-            burritoesCollection.findOne({ orderNum: idNum }, function(err, result) {
-                if (err) throw err;
-                console.log(result);
-              });
-        }
+          })
+
         
 
         app.delete('/burritoes', (req, res) => {
-            console.log("Req to delete " + req.body.orderNum)
             burritoesCollection.deleteOne(
               { orderNum: req.body.orderNum }
             )
@@ -121,7 +101,7 @@ function makeBurrito(data) {
         numIngredients: data.numIngredients,
         orderNum: generateOrderNumber(),
         cursed: data.cursed === 'on' ? true : false,
-        
+        version: 1
     }
     console.log(newBurrito.orderNum)
     //Check if numIngredients is larger than the max value. If it is, set it to the max value.

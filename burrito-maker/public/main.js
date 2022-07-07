@@ -13,11 +13,8 @@ remake.addEventListener('click', _ => {
 
     })
     .then(res => {
+        window.location.reload(true)
         if (res.ok) return res.json()
-      })
-      .then(response => {
-        console.log(response)
-        // window.location.reload(true)
       })
   })
 
@@ -36,7 +33,8 @@ deleteButton.addEventListener('click', _ => {
             if (response === 'No order to delete') {
                 messageDiv.textContent = 'No order to delete'
             } else {
-                messageDiv.textContent = 'Burrito was donated to the local trash panda rescue'
+                messageDiv.textContent = 'Burrito was donated to the local trash panda rescue. Redirecting...'
+                setTimeout(function() {window.location.assign('/')},5000)
             }
         })
 })
