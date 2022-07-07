@@ -21,11 +21,23 @@
             <br>
             <br>
             <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
         </form>
-
-
-
-  
+    </section>
+    <section>
+        <h2><i><%= `${burritoes.length} happy customers so far!` %></i></h2>
+        <p>Latest creations:</p>
+        <ol>
+            <% let max = burritoes.length %>
+            <% for (let i=max-1; i > (max-5); i--) { %>
+                <% console.log(i) %>
+                <% if (burritoes[i].cursed) {  %>
+                    <p><%= `A cursed burrito with ${burritoes[i].numIngredients} ingredients for ${burritoes[i].name}` %> </p>
+                <% } else { %>
+                    <p><%= `An uncursed burrito with ${burritoes[i].numIngredients} ingredients for ${burritoes[i].name}`%></p>
+                <% } %>
+            <% } %>
+        </ol>
     </section>
 
     <script src="/main.js"></script>

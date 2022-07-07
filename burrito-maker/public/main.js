@@ -1,14 +1,14 @@
-const update = document.querySelector('#update-button')
+const remake = document.querySelector('#remake-button')
 const deleteButton = document.querySelector('#delete-button')
 const messageDiv = document.querySelector('#message')
+const orderNum = document.querySelector('#order-num').textContent
 
-update.addEventListener('click', _ => {
-    fetch('/quotes', {
+remake.addEventListener('click', _ => {
+    fetch('/burritoes', {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: 'Darth Vadar',
-        quote: 'I find your lack of faith disturbing.'
+        orderNum: orderNum
       })
 
     })
@@ -17,28 +17,26 @@ update.addEventListener('click', _ => {
       })
       .then(response => {
         console.log(response)
-        window.location.reload(true)
+        // window.location.reload(true)
       })
   })
 
 deleteButton.addEventListener('click', _ => {
-    fetch('/quotes', {
+    fetch('/burritoes', {
         method:'delete',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            name: 'Darth Vadar'
+            orderNum: orderNum
         })
     })
         .then(res => {
             if (res.ok) return res.json()
         })
         .then(response => {
-            if (response === 'No quote to delete') {
-                messageDiv.textContent = 'No Darth Vadar quote to delete'
+            if (response === 'No order to delete') {
+                messageDiv.textContent = 'No order to delete'
             } else {
-                window.location.reload()
+                messageDiv.textContent = 'Burrito was donated to the local trash panda rescue'
             }
-            
         })
-        
 })
