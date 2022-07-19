@@ -1,0 +1,95 @@
+/* Box Model Hack */
+*{
+  box-sizing: border-box;
+}
+body {
+  background-color: #333;
+  color: white;
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+h1,h2,h3 {
+  text-align: center;
+}
+img{
+  display: block;
+  margin: 0 auto;
+  height: 600px;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  padding: 0 30px;
+}
+
+footer {
+  position: fixed;
+  height: 50px;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+}
+
+ul {
+  background: transparent;
+}
+
+/********************************
+/* NAVIGATION ARROWS
+/********************************/
+
+li {
+  display: inline-block;
+  line-height: 30px;
+  position: relative;
+
+}
+
+span {
+  display: block;
+  background: rgba(204, 204, 204, 0.75);
+  padding: 0 20px;
+  color: #333;
+}
+
+.active span {
+  background: rgba(105, 90, 205,0.75);
+  z-index: 100;
+  color: #333;
+}
+.active span:after {
+  border-left-color: rgba(105, 90, 205,0.75);
+}
+
+span:hover {
+  background: lightskyblue;
+}
+span:hover:after {
+  border-color: transparent transparent transparent lightskyblue;
+}
+
+.arrow:after {
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  right: -15px;
+  border-style: solid;
+  border-width: 15px 0 15px 15px;
+  border-color: transparent transparent transparent rgba(204, 204, 204, 0.75);
+  z-index: 10;
+}
+
+#prev span:after {
+  transform: rotate(180deg);
+  left: -15px;
+}
+
