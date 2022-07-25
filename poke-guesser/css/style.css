@@ -1,0 +1,17 @@
+body {
+    background-color: #333;
+}
+.flex-grid {
+    display: flex;
+    flex-wrap: wrap;
+    height: 500px;
+  }
+  .grid-item {
+    flex: 1 1 50%;
+    background: #F90;
+    border-top: solid 1px #000;
+  }
+  .grid-item:nth-child(odd) {
+    background: #F00;
+    flex: 0 0 50%;
+  }
